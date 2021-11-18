@@ -7,4 +7,11 @@ styleUrls: ['tour-list.component.css']
 })
 export class TourListComponent {
 
+  Tour: any = {
+    "Id": 1,
+    "Name": "Lviv tour",
+    "Type": "Bus tour",
+    "Price": 150
+  }
+
 }
