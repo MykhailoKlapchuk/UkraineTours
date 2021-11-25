@@ -1,1 +1,5 @@
-<h1>I am a tour list!</h1>
+<div class="row">
+  <div *ngFor = "let tour of tours" class = "shadow-lg col-sm-4 p-3">
+    <app-tour-card [tour] = "tour"></app-tour-card>
+  </div>
+</div>
