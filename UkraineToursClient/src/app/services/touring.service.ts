@@ -11,11 +11,15 @@ export class TouringService {
 
   constructor(private http:HttpClient) { }
 
-  getAllTours(): Observable<ITour[]> {
+  getAllTours(): Observable<ITour[]>  {
     return this.http.get('data/tours.json').pipe(
       map(data => {
-        const jsonData = JSON.stringify(data)
-        const toursArray: Array<ITour> = JSON.parse(jsonData)
+        const toursArray: Array<ITour> = [];
+        for (const id in data) {
+          if (data.hasOwnProperty(id )) {
+            toursArray.push(data[id]);
+          }
+        }
         return toursArray;
       })
     );
