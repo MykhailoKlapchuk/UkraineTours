@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header">
+    Add New Tour
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #Form="ngForm">
+      <div class="form-group col-12">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" #propName="ngModel" ngModel name="Name" required minlength="5">
+        <span *ngIf="!propName.valid && propName.touched" class="error-block">
+          <span *ngIf="propName.errors.required">Please provide name</span>
+          <span *ngIf="propName.errors.minlength">Name must be atleast 5 char long</span>
+        </span>
+      </div>
+
+      <div class="form-group col-12">
+        <label for="type">Type</label>
+        <input type="text" class="form-control" ngModel name="Type">
+      </div>
+
+      <div class="form-group col-12">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" ngModel name="Price">
+      </div>
+
+      <div class="form-group col-12">
+        <button type="submit" class="btn btn-primary mr-2">Save</button>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>

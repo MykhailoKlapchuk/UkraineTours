@@ -11,12 +11,12 @@ export class TouringService {
 
   constructor(private http:HttpClient) { }
 
-  getAllTours(): Observable<ITour[]>  {
+  getAllTours(TourForm: number): Observable<ITour[]>  {
     return this.http.get('data/tours.json').pipe(
       map(data => {
         const toursArray: Array<ITour> = [];
         for (const id in data) {
-          if (data.hasOwnProperty(id )) {
+          if (data.hasOwnProperty(id) && data[id].Form === TourForm) {
             toursArray.push(data[id]);
           }
         }

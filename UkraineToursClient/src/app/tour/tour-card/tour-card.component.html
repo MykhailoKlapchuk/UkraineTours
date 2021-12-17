@@ -1,16 +1,17 @@
 <div class="card">
   <div class="card-img-wrapper">
-    <img class="card-img-top" src="assets/images/lviv.jpg" />
+    <img *ngIf="tour.Image" class="card-img-top" src="assets/images/{{tour.Image}}.jpg"/>
+    <img *ngIf="!tour.Image" class="card-img-top" src="assets/images/lviv.jpg" />
     <ul class="list-inline text-center member-icons animate">
       <li class="list-inline-item">
-        <button class="btn btn-primary"><i class="far fa-edit"></i></button>
+        <button class="btn btn-primary" routerLink="/tour-detail/{{tour.Id}}"><i class="far fa-edit"></i></button>
       </li>
       <li class="list-inline-item">
         <button class="btn btn-primary"><i class="far fa-address-book"></i></button>
       </li>
     </ul>
   </div>
-  <div class="card-body p-1 ">
+  <div class="card-body p-1">
     <h1>{{ tour.Name }}</h1>
     <h1>{{ tour.Type }}</h1>
     <h1>{{ tour.Price }}</h1>

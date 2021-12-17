@@ -1,36 +1,44 @@
 [
   {
     "Id": 1,
+    "Form": 1,
     "Name": "Lviv bus tour",
     "Type": "Bus tour",
-    "Price": 150
+    "Price": 150,
+    "Image":"bus_lviv"
   },
   {
     "Id": 2,
+    "Form": 1,
     "Name": "Lviv walking tour",
     "Type": "Walking tour",
     "Price": 80
   },
   {
     "Id": 3,
+    "Form": 1,
     "Name": "Lviv underground tour",
     "Type": "Walking tour",
-    "Price": 100
+    "Price": 100,
+    "Image":"underground_lviv"
   },
   {
     "Id": 4,
+    "Form": 2,
     "Name": "Karpaty tour",
     "Type": "Bus tour",
     "Price": 300
   },
   {
     "Id": 5,
+    "Form": 2,
     "Name": "Synevyr tour",
     "Type": "Bus tour",
     "Price": 300
   },
   {
     "Id": 6,
+    "Form": 2,
     "Name": "Bukovel tour",
     "Type": "Hiking tour",
     "Price": 500
