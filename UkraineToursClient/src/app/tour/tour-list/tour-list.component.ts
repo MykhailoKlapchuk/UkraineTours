@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { ITourBase } from "src/app/model/itourbase";
 import { TouringService } from "src/app/services/touring.service";
-import { ITour } from "../ITour.interface";
 
 @Component({
 selector: 'app-tour-list',
@@ -10,7 +10,7 @@ styleUrls: ['tour-list.component.css']
 })
 export class TourListComponent implements OnInit {
   TourForm = 1; //private tour
-  tours: Array<ITour> = [];
+  tours: Array<ITourBase> = [];
 
   constructor(private route: ActivatedRoute, private touringService: TouringService){ }
 

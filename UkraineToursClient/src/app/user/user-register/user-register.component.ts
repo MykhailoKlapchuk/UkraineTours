@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserForRegister } from 'src/app/model/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
-//import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-user-register',
@@ -15,15 +15,14 @@ export class UserRegisterComponent implements OnInit {
     user: UserForRegister;
     userSubmitted: boolean;
     constructor(private fb: FormBuilder,
-                //private authService: AuthService,
-                private alertify: AlertifyService
-                ) { }
+                private authService: AuthService,
+                private alertify: AlertifyService ) { }
 
     ngOnInit() {
-        this.createregistrationForm();
+        this.createRegisterationForm();
     }
 
-    createregistrationForm() {
+    createRegisterationForm() {
         this.registrationForm =  this.fb.group({
             userName: [null, Validators.required],
             email: [null, [Validators.required, Validators.email]],
@@ -38,17 +37,17 @@ export class UserRegisterComponent implements OnInit {
             {notmatched: true};
     }
 
-
     onSubmit() {
         console.log(this.registrationForm.value);
         this.userSubmitted = true;
 
         if (this.registrationForm.valid) {
-            //this.authService.registerUser(this.userData()).subscribe(() =>
-            //{
+            // this.user = Object.assign(this.user, this.registerationForm.value);
+            this.authService.registerUser(this.userData()).subscribe(() =>
+            {
                 this.onReset();
                 this.alertify.success('Congrats, you are successfully registered');
-           // });
+            });
         }
     }
 
@@ -58,14 +57,13 @@ export class UserRegisterComponent implements OnInit {
     }
 
     userData(): UserForRegister {
-      return this.user = {
-          userName: this.userName.value,
-          email: this.email.value,
-          password: this.password.value,
-          mobile: this.mobile.value
-      };
-  }
-
+        return this.user = {
+            userName: this.userName.value,
+            email: this.email.value,
+            password: this.password.value,
+            mobile: this.mobile.value
+        };
+    }
 
     // ------------------------------------
     // Getter methods for all form controls

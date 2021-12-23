@@ -22,10 +22,10 @@
           <input type="text" class="form-control" formControlName="email">
           <span *ngIf="!email.valid && (email.touched || userSubmitted)" class="error-block">
             <span *ngIf="email.hasError('required')">
-                Please provide email
+                Please provide email id
             </span>
             <span *ngIf="email.hasError('email')">
-              Please provide valid email
+              Please provide valid email id
             </span>
           </span>
         </div>
@@ -38,7 +38,7 @@
               Please provide password
             </span>
             <span *ngIf="password.errors.minlength">
-              Password should not be less than 8 characters
+              Password should not be lesser than 8 character
             </span>
           </span>
         </div>
