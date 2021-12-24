@@ -1,10 +1,110 @@
-<p>
-  tour-detail works! Selected tour id is {{tourId}}
-</p>
-<br/> <br/>
-<button (click)="onSelectNext()" class="btn btn-primary">Select next</button>
-<br/> <br/>
-<button routerLink="/tour-detail/1" class="btn btn-primary">1</button>
-<button routerLink="/tour-detail/2" class="btn btn-primary">2</button>
-<button routerLink="/tour-detail/3" class="btn btn-primary">3</button>
-<button [routerLink]="['/tour-detail', '4']" class="btn btn-primary">4</button>
+<div class="row shadow">
+  <div class="col-sm-4 p-0">
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img *ngIf="mainPhotoUrl" class="card-img-top" src="{{mainPhotoUrl}}">
+        <img *ngIf="!mainPhotoUrl" class="card-img-top" src="assets/images/{{tour.photo}}.jpg">
+      </div>
+      <div class="card-body">
+        <h1 class="card-title">{{tour.name}}</h1>
+
+        <div>
+           <strong>in {{tour.city}}</strong>
+        </div> <hr>
+        <div>
+            <strong>Tour Form: </strong>
+            {{tour.tourForm}}
+        </div>
+
+        <div>
+            <strong>Support Level: </strong>
+            {{tour.supportType}}
+        </div>
+        <div>
+            <strong>Tour type: </strong>
+            {{tour.tourType}}
+        </div>
+
+    </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Like</button>
+          <button class="btn btn-success">Message</button>
+        </div>
+      </div>
+  </div>
+  </div>
+  <div class="col-sm-8 p-0">
+    <div class="tab-panel p-3">
+      <tabset class="member-tabset">
+        <tab heading="Overview">
+          <h1>Overview</h1>
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="heading">
+                      <strong>Tour Name</strong>
+                      <p>{{tour.name}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Tour price</strong>
+                      <p>{{tour.price}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Posession</strong>
+                      <p>{{tour.name | date}}</p>
+                  </div>
+              </div>
+
+              <div class="col-sm-6">
+                  <div class="heading">
+                      <strong>Main Entrance</strong>
+                      <p>{{tour.name}}</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Gated Community</strong>
+                      <p *ngIf="tour.adultsOnly">Yes</p>
+                      <p *ngIf="!tour.adultsOnly">No</p>
+                  </div>
+
+                  <div class="heading">
+                      <strong>Security Deposit</strong>
+                      <p>{{tour.name}}</p>
+                  </div>
+                  <div class="heading">
+                      <strong>Maintenance</strong>
+                      <p>{{tour.name}}</p>
+                  </div>
+              </div>
+              <div class="col-sm-12">
+                  <div class="heading">
+                      <strong>About tour</strong>
+                      <p>{{tour.description}}</p>
+                  </div>
+              </div>
+            </div>
+        </tab>
+        <tab heading="Address">
+          <div class="col-sm-12">
+            <h1>Address</h1>
+            <div class="heading">
+                <strong>{{tour.name}}</strong><br/>
+                <strong>{{tour.name}}</strong><br/>
+                <strong>{{tour.city}}</strong>
+            </div>
+        </div>
+
+        </tab>
+        <tab heading="Photos">
+
+        </tab>
+        <tab heading="Contact">
+          <h1>Contact Detail</h1>
+          This should be restricted area and only registered user should be able to see seller contact details
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

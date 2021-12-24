@@ -12,14 +12,13 @@ export class TouringService {
 
   constructor(private http:HttpClient) { }
 
-  getAllTours(TourForm: number): Observable<ITourBase[]>  {
+  getAllTours(TourForm?: number): Observable<ITourBase[]>  {
     return this.http.get('data/tours.json').pipe(
       map(data => {
         const toursArray: Array<ITourBase> = [];
         for (const id in data) {
-          if (data.hasOwnProperty(id) && data[id].tourForm === TourForm) {
+
             toursArray.push(data[id]);
-          }
         }
         return toursArray;
       })
@@ -38,5 +37,16 @@ export class TouringService {
 
   addTour(tour:Tour){
     localStorage.setItem('newTour', JSON.stringify(tour))
+  }
+
+  getTour(id: number){
+
+    return this.getAllTours().pipe(
+      map(tourArray =>{
+        return tourArray.find(t => t.id === id)
+      }
+
+      )
+    );
   }
 }
