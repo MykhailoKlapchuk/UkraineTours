@@ -8,8 +8,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-//import {PropertyDetailResolverService} from './property/property-detail/property-detail-resolver.service';
-//import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { TourCardComponent } from './tour/tour-card/tour-card.component';
@@ -26,12 +25,13 @@ import { AuthService } from './services/auth.service';
 //import { SortPipe } from './Pipes/sort.pipe';
 //import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 import { DatePipe } from '@angular/common';
+import { TourDetailResolverService } from './tour/tour-detail/tour-detail-resolver.service';
 
 const appRoutes: Routes = [
   {path: '', component: TourListComponent},
   {path: 'group-tour', component: TourListComponent},
   {path: 'add-tour', component: AddTourComponent},
-  {path: 'tour-detail/:id', component: TourDetailComponent},
+  {path: 'tour-detail/:id', component: TourDetailComponent, resolve: {tour: TourDetailResolverService}},
   {path: 'user/login', component: UserLoginComponent},
   {path: 'user/register', component: UserRegisterComponent},
   {path: '**', component: TourListComponent}
@@ -61,7 +61,7 @@ const appRoutes: Routes = [
         TabsModule.forRoot(),
         ButtonsModule.forRoot(),
         BsDatepickerModule.forRoot(),
-        //NgxGalleryModule
+        CarouselModule.forRoot()
     ],
     providers: [
         // {
@@ -72,8 +72,8 @@ const appRoutes: Routes = [
         DatePipe,
         TouringService,
         AlertifyService,
-        AuthService
-        //TourDetailResolverService
+        AuthService,
+        TourDetailResolverService
     ],
     bootstrap: [
         AppComponent

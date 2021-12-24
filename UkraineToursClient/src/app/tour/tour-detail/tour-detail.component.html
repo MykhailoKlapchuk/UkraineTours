@@ -98,7 +98,11 @@
 
         </tab>
         <tab heading="Photos">
-
+          <carousel>
+            <slide *ngFor="let photo of tour.photos">
+              <img  src={{photo.imageUrl}} alt="Oooops something goes wrong" style="display: block; width: 100%; height: '465px';">
+            </slide>
+          </carousel>
         </tab>
         <tab heading="Contact">
           <h1>Contact Detail</h1>

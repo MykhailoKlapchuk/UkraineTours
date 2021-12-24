@@ -1,5 +1,7 @@
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Photo } from 'src/app/model/photo';
 import { Tour } from 'src/app/model/tour';
 import { TouringService } from 'src/app/services/touring.service';
 
@@ -12,8 +14,6 @@ export class TourDetailComponent implements OnInit {
 public tourId: number;
 tour = new Tour();
 public mainPhotoUrl: string = null;
-//galleryOptions: NgxGalleryOptions[];
-//galleryImages: NgxGalleryImage[];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -21,50 +21,32 @@ public mainPhotoUrl: string = null;
 
   ngOnInit() {
     this.tourId = +this.route.snapshot.params['id'];
-
-    this.route.params.subscribe(
-      (params) => {
-        this.tourId = +params['id'];
-        this.touringService.getTour(this.tourId).subscribe(
-          (data: Tour) => {
-            this.tour = data;
-          }
-        )
-      }
-    )
-    // this.galleryOptions = [
-    //   {
-    //       width: '100%',
-    //       height: '465px',
-    //       thumbnailsColumns: 4,
-    //       imageAnimation: NgxGalleryAnimation.Slide,
-    //       preview: true
-    //   }
-  //];
-
-  //this.galleryImages = this.getPropertyPhotos();
-
+    this.route.data.subscribe(
+      (data: Tour) => {
+          this.tour = data['tour'];
+          this.tour.photos = this.getTourPhotos();
+          console.log(this.tour.photos);
+      })
   }
 
-//   getPropertyPhotos(): NgxGalleryImage[] {
-//     const photoUrls: NgxGalleryImage[] = [];
-//     for (const photo of this.property.photos) {
-//         if(photo.isPrimary)
-//         {
-//             this.mainPhotoUrl = photo.imageUrl;
-//         }
-//         else{
-//             photoUrls.push(
-//                 {
-//                     small: photo.imageUrl,
-//                     medium: photo.imageUrl,
-//                     big: photo.imageUrl
-//                 }
-//             );}
-//     }
-//     return photoUrls;
-// }
-
-
-
+  getTourPhotos(): Photo[] {
+    const photoUrls: Photo[] = [
+      {
+        imageUrl: "assets/images/bus_lviv.jpg",
+        isPrimary: true,
+        publicId: '1'
+      },
+      {
+        imageUrl: "assets/images/underground_lviv.jpg",
+        isPrimary: false,
+        publicId: '2'
+      },
+      {
+        imageUrl: "assets/images/lviv.jpg",
+        isPrimary: false,
+        publicId: '3'
+      }
+    ];
+    return photoUrls;
+  }
 }
