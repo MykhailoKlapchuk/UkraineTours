@@ -1,6 +1,6 @@
 export interface ITourBase {
   id: number;
-  tourForm: number;
+  tourForm: string;
   name: string;
   tourType: string;
   supportType: string;

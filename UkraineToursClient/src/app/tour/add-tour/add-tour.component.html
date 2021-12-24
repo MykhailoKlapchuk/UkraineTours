@@ -5,192 +5,209 @@
         <h3>Tours list</h3>
       </div>
       <div class="card-body">
-        <form (ngSubmit)='onSubmit()' #Form="ngForm">
+        <form (ngSubmit)='onSubmit()' [formGroup]="addTourForm">
           <div class="tab-panel">
             <tabset class="member-tabset" #formTabs>
 
 
-
-              <tab heading="Basic info">
+              <tab heading="Basic info" formGroupName="BasicInfo">
                 <div class="form-group col-12">
-
                   <p>Tour form</p>
-                  <div class="btn-group" btnRadioGroup>
-                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button"
-                      name="tourForm">Private</label>
-                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button"
-                      name="tourForm">Group</label>
+                  <div class="btn-group" btnRadioGroup formControlName="TourForm">
+                    <label class="btn btn-outline-primary mr-2" btnRadio='Private' tabindex="0" role="button"
+                      name="TourForm">Private</label>
+                    <label class="btn btn-outline-primary" btnRadio='Group' tabindex="0" role="button"
+                      name="TourForm">Group</label>
                   </div>
-                  <!-- <div class="error-block" *ngIf="SellRent.invalid && nextClicked">
-                Please select sell or rent
-              </div> -->
+                  <div class="error-block" *ngIf="TourForm.invalid && nextClicked">
+                    Please select tour form
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <p>Tour type</p>
-                  <div class="btn-group" btnRadioGroup name='tourType' [(ngModel)]="tourView.tourType">
+                  <div class="btn-group" btnRadioGroup formControlName='TourType' name="TourType">
                     <label *ngFor="let ttype of tourTypes" class="btn btn-outline-primary mr-2" [btnRadio]="ttype"
-                      tabindex="0" role="button" name="tourType">{{ttype}}
+                      tabindex="0" role="button" (click)="tourView.tourType=ttype" name="TourType">{{ttype}}
                     </label>
                   </div>
-                  <!-- <div class="error-block" *ngIf="TType.invalid && nextClicked">
-                Please select tour type
-              </div> -->
+                  <div class="error-block" *ngIf="TourType.invalid && nextClicked">
+                    Please select tour type
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <p>Support type</p>
-                  <div class="btn-group" btnRadioGroup>
+                  <div class="btn-group" btnRadioGroup formControlName="SupportType">
                     <label *ngFor="let stype of supportTypes" class="btn btn-outline-primary mr-2" [btnRadio]="stype"
-                      tabindex="0" role="button" name="supportType">{{stype}}
+                      tabindex="0" role="button" (click)="tourView.supportType=stype" name="SupportType">{{stype}}
                     </label>
                   </div>
-                  <!-- <div class="error-block" *ngIf="SType.invalid && nextClicked">
-                Please select support type
-              </div> -->
+                  <div class="error-block" *ngIf="SupportType.invalid && nextClicked">
+                    Please select support type
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>City</label>
-                  <select #City class="form-control" name="city">
+                  <select #city class="form-control" formControlName="City"
+                  (change)="tourView.city=city.options[city.options.selectedIndex].text">
                     <option value=''>--Select city--</option>
-                    <option *ngFor="let city of settlementList" value={{city}}>
-                      {{city}}
-                    </option>
+                    <option *ngFor="let city of settlementList" value={{city}}>{{city}}</option>
                   </select>
-                  <!-- <div class="error-block"
-              *ngIf="City.invalid && (nextClicked || City.touched)">
-                Please select city
-              </div> -->
+                  <div class="error-block"
+                    *ngIf="City.invalid && (nextClicked || City.touched)">
+                    Please select city
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Name</label>
-                  <input type="text" class="form-control" #tourName="ngModel" ngModel name="name" required
-                    minlength="5"
-                    [(ngModel)]="tourView.name">
-                  <span *ngIf="!tourName.valid && tourName.touched" class="error-block">
-                    <span *ngIf="tourName.errors.required">Please provide name</span>
-                    <span *ngIf="tourName.errors.minlength">Name must be atleast 5 char long</span>
-                  </span>
+                  <input type="text" class="form-control" #tourName (keyup)="tourView.name=tourName.value" formControlName="Name">
+                  <div class="error-block"
+                    *ngIf="Name.invalid && (nextClicked || Name.touched)">
+                      Please enter tour name
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(1)">Next</button>
+                  <button type="button" class="btn btn-primary btn-block"
+                  (click)="selectTab(1, BasicInfo.valid)">Next</button>
                 </div>
               </tab>
 
 
-
-              <tab heading="Tour pricing">
+              <tab heading="Tour pricing" formGroupName="TourPricing">
                 <div class="form-group col-12">
                   <label>Total price (in USD)</label>
-                  <input type="text" class="form-control" name="price" [(ngModel)]="tourView.price">
+                  <input type="text" class="form-control" formControlName="Price" #price
+                  (keyup)="tourView.price=+price">
+                  <div class="error-block"
+                  *ngIf="Price.invalid && (nextClicked || Price.touched)">
+                    Please enter price
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Tour guide support (in USD)</label>
-                  <input type="text" class="form-control" name="supportPrice">
+                  <input type="text" class="form-control" formControlName="SupportPrice">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Transportation (in USD)</label>
-                  <input type="text" class="form-control" name="transportationPrice">
+                  <input type="text" class="form-control" formControlName="TransportationPrice">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Accommodation (in USD)</label>
-                  <input type="text" class="form-control" name="accommodationPrice">
+                  <input type="text" class="form-control" formControlName="AccommodationPrice">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Food (in USD)</label>
-                  <input type="text" class="form-control" name="foodPrice">
+                  <input type="text" class="form-control" formControlName="FoodPrice">
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2)">Next</button>
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(0)">Back</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2, TourPricing.valid)">Next</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(0, TourPricing.valid)">Back</button>
                 </div>
               </tab>
 
 
-
-              <tab heading="Route">
+              <tab heading="Route" formGroupName="Route">
                 <div class="form-group col-12">
                   <label>Country part</label>
-                  <input type="text" class="form-control" name="countryPart">
+                  <input type="text" class="form-control" formControlName="CountryPart">
+                  <div class="error-block"
+                    *ngIf="CountryPart.invalid && nextClicked">
+                    Please enter country part
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Region</label>
-                  <input type="text" class="form-control" name="region">
+                  <input type="text" class="form-control" formControlName="Region">
+                  <div class="error-block"
+                    *ngIf="Region.invalid && nextClicked">
+                    Please enter region
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Settlements</label>
-                  <input type="text" class="form-control" name="settlements">
+                  <input type="text" class="form-control" formControlName="Settlements">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Tour magnets</label>
-                  <input type="text" class="form-control" name="magnets">
+                  <input type="text" class="form-control" formControlName="Magnets">
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3)">Next</button>
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(1)">Back</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3, Route.valid)">Next</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(1, Route.valid)">Back</button>
                 </div>
               </tab>
 
 
-
-              <tab heading="Other details">
+              <tab heading="Other details" formGroupName="OtherDetails">
                 <div class="form-group col-12">
                   <label>For adults only?</label><br />
-                  <div class="btn-group" btnRadioGroup>
-                    <label class="btn btn-outline-primary mr-2" btnRadio=1 tabindex="0" role="button" name="adultsOnly">Yes</label>
-                    <label class="btn btn-outline-primary" btnRadio=2 tabindex="0" role="button" name="adultsOnly">No</label>
+                  <div class="btn-group" btnRadioGroup formControlName='AdultsOnly'>
+                    <label class="btn btn-outline-primary mr-2" btnRadio='true' tabindex="0" role="button" name="AdultsOnly">Yes</label>
+                    <label class="btn btn-outline-primary" btnRadio='false' tabindex="0" role="button" name="AdultsOnly">No</label>
+                  </div>
+                  <div class="error-block"
+                    *ngIf="AdultsOnly.invalid && nextClicked">
+                    Please select age category
                   </div>
                 </div>
 
                 <div class="form-group col-3">
                   <label>Available from</label>
-                  <input type="text" class="form-control" bsDatepicker name="availableFrom"
+                  <input type="text" class="form-control" bsDatepicker formControlName="AvailableFrom"
                     [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'MMM DD, YYYY'}">
+                  <div class="error-block"
+                    *ngIf="AvailableFrom.invalid && nextClicked">
+                    Please select date
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Duration</label>
-                  <input type="text" class="form-control" name="duration" [(ngModel)]="tourView.duration">
+                  <input type="text" class="form-control" formControlName="Duration">
+                  <div class="error-block"
+                    *ngIf="Duration.invalid && nextClicked">
+                    Please enter duration (in days)
+                  </div>
                 </div>
 
                 <div class="form-group col-12">
                   <label>Type of accommodation</label>
-                  <input type="text" class="form-control" name="accomType">
+                  <input type="text" class="form-control" formControlName="AccomType">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Type of food pantion</label>
-                  <input type="text" class="form-control" name="foodPantion">
+                  <input type="text" class="form-control" formControlName="FoodPantion">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Type of transportation</label>
-                  <input type="text" class="form-control" name="transportType">
+                  <input type="text" class="form-control" formControlName="TransportType">
                 </div>
 
                 <div class="form-group col-12">
                   <label>Description</label>
-                  <textarea type="text" class="form-control" rows="6" name="description"></textarea>
+                  <textarea type="text" class="form-control" rows="6" formControlName="Description"></textarea>
                 </div>
 
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(4)">Next</button>
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2)">Back</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(4, OtherDetails.valid)">Next</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(2, OtherDetails.valid)">Back</button>
                 </div>
               </tab>
-
 
 
               <tab heading="Photos">
@@ -201,9 +218,10 @@
                   </div>
                 </div>
                 <div class="form-group col-12">
-                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3)">Back</button>
-                  <button type="reset" class="btn btn-primary btn-block" (click)="selectTab(3)">Cancel</button>
-                  <button type="submit" class="btn btn-primary btn-block" (click)="selectTab(3)">Save</button>
+                  <button type="button" class="btn btn-primary btn-block" (click)="selectTab(3, true)">Back</button>
+
+                  <button type="submit" class="btn btn-primary btn-block">Save</button>
+                  <button type="reset" class="btn btn-primary btn-block">Cancel</button>
                 </div>
               </tab>
             </tabset>

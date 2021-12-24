@@ -15,7 +15,7 @@
   <div class="card-body p-1">
     <h1 class="mb-0">{{tour.tourType}} </h1>
 
-    <p>{{tour.name}} <span *ngIf="tour.name">,</span> {{tour.city}}</p>
+    <p>{{tour.name}}<span *ngIf="tour.name !=''">,</span> {{tour.city}}</p>
 
 
     <p *ngIf="tour.supportType !== 'Unsupported'">Guide supported</p>
