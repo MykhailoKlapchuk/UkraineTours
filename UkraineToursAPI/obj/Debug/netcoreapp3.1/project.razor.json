@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\UkraineToursAPI.csproj",
+  "FilePath": "c:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\ukrainetoursapi.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14399,7 +14399,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "UkraineToursAPI",
+  "RootNamespace": "ukrainetoursapi",
   "Documents": [],
   "SerializationFormat": "0.2"
 }
