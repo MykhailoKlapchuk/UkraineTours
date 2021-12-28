@@ -33,5 +33,16 @@
     "adultsOnly": "false",
     "duration": 2,
     "photo":"underground_lviv"
+  },
+  {
+    "id": 4,
+    "tourForm": 2,
+    "name": "Frankivsk underground tour",
+    "tourType": "Walking",
+    "price": 100,
+    "supportType": "Fully",
+    "city": "Frankivsk",
+    "adultsOnly": "false",
+    "duration": 2
   }
 ]

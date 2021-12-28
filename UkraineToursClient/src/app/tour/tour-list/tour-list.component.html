@@ -1,5 +1,23 @@
+<label>Filter City: &nbsp; </label>
+<input [(ngModel)]='City'>
+<button class="btn-primary mr-1 ml-1 btn-sm" type="button" (click)="onCityFilter()">Search</button>
+<button class="btn-danger btn-sm" type="button" (click)="onCityFilterClear()">Clear</button> &nbsp;
+
+<label>Sort by &nbsp;</label>
+<select [(ngModel)] = 'SortbyParam'>
+  <option value="city">City</option>
+  <option value="price">Price</option>
+</select>
+<button class="btn-primary ml-1 btn-sm" type="button" (click) = "onSortDirection()">
+  <i *ngIf="SortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+  <i *ngIf="SortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+</button>
+
 <div class="row">
-  <div *ngFor = "let tour of tours" class = "shadow-lg col-sm-4 p-3">
-    <app-tour-card [tour] = "tour"></app-tour-card>
-  </div>
+  <div *ngFor="let tour of tours|filter:SearchCity:'city'|sort:[SortbyParam,SortDirection]"
+  class="col-sm-4">
+    <div class="shadow-lg p-3 mb-4">
+        <app-tour-card [tour]="tour"></app-tour-card>
+    </div>
+</div>
 </div>

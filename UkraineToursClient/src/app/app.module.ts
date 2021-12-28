@@ -21,8 +21,8 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/auth.service';
-//import { FilterPipe } from './Pipes/filter.pipe';
-//import { SortPipe } from './Pipes/sort.pipe';
+import { FilterPipe } from './Pipes/filter.pipe';
+import { SortPipe } from './Pipes/sort.pipe';
 //import { HttpErrorInterceptorService } from './services/httperor-interceptor.service';
 import { DatePipe } from '@angular/common';
 import { TourDetailResolverService } from './tour/tour-detail/tour-detail-resolver.service';
@@ -47,8 +47,8 @@ const appRoutes: Routes = [
       TourDetailComponent,
       UserRegisterComponent,
       UserLoginComponent,
-      //FilterPipe,
-      //SortPipe
+      FilterPipe,
+      SortPipe
     ],
     imports: [
         BrowserModule,
