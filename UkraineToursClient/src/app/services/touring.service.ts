@@ -13,7 +13,7 @@ export class TouringService {
   constructor(private http:HttpClient) { }
 
 getAllCities(): Observable<string[]>{
-  return this.http.get<string[]>('http://localhost:5000/api/city');
+  return this.http.get<string[]>('http://localhost:18249/api/city');
 }
 
   getAllTours(TourForm?: number): Observable<Tour[]>  {
