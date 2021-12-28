@@ -21,7 +21,7 @@ export class AddTourComponent implements OnInit {
     // Will come from masters
     tourTypes: Array<string> = ['Walking', 'Bus', 'Hiking']
     supportTypes: Array<string> = ['Fully', 'Semi', 'Unsupported']
-    settlementList: Array<string> =['Lviv', 'Kyiv'];
+    settlementList: Array<string> =[];
 
     tourView: ITourBase = {
       id: null,
@@ -48,6 +48,10 @@ export class AddTourComponent implements OnInit {
       //     this.router.navigate(['/user/login']);
       // }
       this.CreateAddTourForm();
+      this.touringService.getAllCities().subscribe(data => {
+        console.log(data);
+        this.settlementList = data;
+      })
     }
 
     CreateAddTourForm(){

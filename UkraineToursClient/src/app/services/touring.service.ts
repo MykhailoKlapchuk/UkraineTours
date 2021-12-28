@@ -12,6 +12,10 @@ export class TouringService {
 
   constructor(private http:HttpClient) { }
 
+getAllCities(): Observable<string[]>{
+  return this.http.get<string[]>('http://localhost:5000/api/city');
+}
+
   getAllTours(TourForm?: number): Observable<Tour[]>  {
     return this.http.get('data/tours.json').pipe(
       map(data => {

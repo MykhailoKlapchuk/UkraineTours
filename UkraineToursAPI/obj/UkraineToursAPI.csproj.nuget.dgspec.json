@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mklap\\source\\repos\\UkraineTours\\ukrainetoursapi\\UkraineToursAPI.csproj": {}
+    "C:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\UkraineToursAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mklap\\source\\repos\\UkraineTours\\ukrainetoursapi\\UkraineToursAPI.csproj": {
+    "C:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\UkraineToursAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\ukrainetoursapi\\UkraineToursAPI.csproj",
+        "projectUniqueName": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\UkraineToursAPI.csproj",
         "projectName": "UkraineToursAPI",
-        "projectPath": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\ukrainetoursapi\\UkraineToursAPI.csproj",
+        "projectPath": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\UkraineToursAPI.csproj",
         "packagesPath": "C:\\Users\\mklap\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\ukrainetoursapi\\obj\\",
+        "outputPath": "C:\\Users\\mklap\\source\\repos\\UkraineTours\\UkraineToursAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
