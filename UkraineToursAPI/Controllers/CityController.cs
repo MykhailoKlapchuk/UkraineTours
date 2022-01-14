@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using UkraineToursAPI.Data;
+using UkraineToursAPI.Interfaces;
 using UkraineToursAPI.Models;
 
 namespace WebAPI.Controllers
@@ -10,37 +10,37 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class CityController : ControllerBase
     {
-        private readonly DataContext dataContext;
+        private readonly IUnitOfWork uow;
 
-        public CityController(DataContext dataContext)
+        public CityController(IUnitOfWork uow)
         {
-            this.dataContext = dataContext;
+            this.uow = uow;
         }
         
-        [HttpGet]
+        // GET api/city
+        [HttpGet ("cities")]        
+        [AllowAnonymous]
         public async Task<IActionResult> GetCities()
         {
-            var cities = await dataContext.Cities.ToListAsync();
+            var cities = await uow.CityRepository.GetCitiesAsync();
 
             return Ok(cities);
         }
         
-         [HttpPost("add/{cityName}")]
-         public async Task<IActionResult> AddCity(string cityName)
+         [HttpPost("add")]
+         public async Task<IActionResult> AddCity(City city)
          {
-             var city = new City(){Name = cityName};
-             await dataContext.Cities.AddAsync(city);
-             await dataContext.SaveChangesAsync();
+             uow.CityRepository.AddCity(city);
+             await uow.SaveAsync();
 
-             return Ok(city);
+             return StatusCode(201);
          }
 
          [HttpDelete("delete/{id}")]
          public async Task<IActionResult> DeleteCity(int id)
          {
-             var city = await dataContext.Cities.FindAsync(id);
-             dataContext.Cities.Remove(city);
-             await dataContext.SaveChangesAsync();
+             uow.CityRepository.DeleteCity(id);
+             await uow.SaveAsync();
 
              return Ok(id);
          }
