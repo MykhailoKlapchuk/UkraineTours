@@ -21,7 +21,7 @@ export class AddTourComponent implements OnInit {
     // Will come from masters
     tourTypes: Array<string> = ['Walking', 'Bus', 'Hiking']
     supportTypes: Array<string> = ['Fully', 'Semi', 'Unsupported']
-    settlementList: Array<string> =[];
+    settlementList: any =[];
 
     tourView: ITourBase = {
       id: null,
