@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UkraineToursAPI.Dtos
+﻿namespace UkraineToursAPI.Dtos
 {
     public class CityUpdateDto
     {       
