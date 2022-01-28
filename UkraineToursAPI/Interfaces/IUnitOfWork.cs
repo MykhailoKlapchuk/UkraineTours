@@ -6,7 +6,7 @@ namespace UkraineToursAPI.Interfaces
     {
         ICityRepository CityRepository {get; }
 
-        //IUserRepository UserRepository {get; }
+        IUserRepository UserRepository {get; }
 
         //IPropertyRepository PropertyRepository {get; }
 

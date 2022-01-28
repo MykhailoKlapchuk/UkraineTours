@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UkraineToursAPI.Controllers;
 using UkraineToursAPI.Dtos;
 using UkraineToursAPI.Interfaces;
 using UkraineToursAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CityController : ControllerBase
+    [Authorize]
+    public class CityController : BaseController
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
@@ -99,6 +99,5 @@ namespace WebAPI.Controllers
             cityFromDb.LastUpdatedBy = 1;
             cityFromDb.LastUpdatedOn = DateTime.Now;
         }
-
     }
 }

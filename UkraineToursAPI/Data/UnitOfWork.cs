@@ -15,9 +15,9 @@ namespace UkraineToursAPI.Data
         public ICityRepository CityRepository => 
             new CityRepository(dc);
 
-        /*public IUserRepository UserRepository =>         
+        public IUserRepository UserRepository =>         
             new UserRepository(dc);
-
+        /*
         public IFurnishingTypeRepository FurnishingTypeRepository =>         
             new FurnishingTypeRepository(dc);
 
