@@ -2,7 +2,7 @@ export interface UserForRegister {
   userName: string;
   email?: string;
   password: string;
-  mobile?: number;
+  phoneNumber?: number;
 }
 
 export interface UserForLogin {

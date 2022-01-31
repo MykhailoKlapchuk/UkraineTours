@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using UkraineToursAPI.Dtos;
 using UkraineToursAPI.Interfaces;
 using UkraineToursAPI.Models;
 
@@ -15,7 +17,7 @@ namespace UkraineToursAPI.Data.Repo
         }
         public async Task<User> Authenticate(string userName, string passwordText)
         {
-            var user =  await dc.Users.FirstOrDefaultAsync(x => x.Username == userName);
+            var user =  await dc.Users.FirstOrDefaultAsync(x => x.UserName == userName);
 
             if (user == null || user.PasswordKey == null)
                 return null;
@@ -30,7 +32,7 @@ namespace UkraineToursAPI.Data.Repo
         {
             using (var hmac = new HMACSHA512(passwordKey))
             {
-                var passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(passwordText));
+                var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
 
                 for (int i = 0; i < passwordHash.Length; i++)
                 {
@@ -42,27 +44,31 @@ namespace UkraineToursAPI.Data.Repo
             }            
         }
 
-        public void Register(string userName, string password)
+        public void Register(RegisterReqDto user)
         {
             byte[] passwordHash, passwordKey;
 
             using (var hmac = new HMACSHA512())
             {
                 passwordKey = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
             }
 
-            User user = new User();
-            user.Username = userName;
-            user.Password = passwordHash;
-            user.PasswordKey = passwordKey;
+            var userToSave = new User
+            {
+                UserName = user.UserName,
+                Password = passwordHash,
+                PasswordKey = passwordKey,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
 
-            dc.Users.Add(user);
+            dc.Users.Add(userToSave);
         }
 
         public async Task<bool> UserAlreadyExists(string userName)
         {
-            return await dc.Users.AnyAsync(x => x.Username == userName);
+            return await dc.Users.AnyAsync(x => x.UserName == userName);
         }
     }
 }
