@@ -22,10 +22,10 @@
           <input type="text" class="form-control" formControlName="email">
           <span *ngIf="!email.valid && (email.touched || userSubmitted)" class="error-block">
             <span *ngIf="email.hasError('required')">
-                Please provide email id
+                Please provide correct email address
             </span>
             <span *ngIf="email.hasError('email')">
-              Please provide valid email id
+              Please provide correct email address
             </span>
           </span>
         </div>
@@ -57,13 +57,13 @@
         </div>
 
         <div class="form-group col-12">
-          <label for="mobile" class="form-label">Mobile</label>
+          <label for="mobile" class="form-label">Mobile number</label>
           <input type="text" class="form-control" formControlName="mobile">
           <span  *ngIf="!mobile.valid && (mobile.touched || userSubmitted)" class="error-block">
               <span *ngIf="mobile.hasError('required')">
-                Please provide mobile
+                Please provide mobile phone number
               </span>
-              <span *ngIf="mobile.hasError('maxlength')" class="error-block">
+              <span *ngIf="mobile.hasError('pattern')" class="error-block">
                 Invalid mobile number
               </span>
           </span>
