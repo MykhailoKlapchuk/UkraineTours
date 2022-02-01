@@ -34,6 +34,7 @@ namespace UkraineToursAPI.Data.Repo
             .Include(p => p.City)
             .Include(p => p.SupportType)
             .Include(p => p.Photos)
+            .Include(p => p.User)
             .Where(p => p.TourForm == tourFormEnum)
             .ToListAsync();
 

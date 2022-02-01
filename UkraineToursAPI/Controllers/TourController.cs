@@ -15,13 +15,14 @@ namespace UkraineToursAPI.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
-        private readonly IPhotoService photoService;
+        //private readonly IPhotoService photoService;
 
         public TourController(IUnitOfWork uow,
-        IMapper mapper,
-        IPhotoService photoService)
+        IMapper mapper
+        //IPhotoService photoService
+            )
         {
-            this.photoService = photoService;
+            //this.photoService = photoService;
             this.uow = uow;
             this.mapper = mapper;
         }
@@ -33,7 +34,7 @@ namespace UkraineToursAPI.Controllers
         {
             var Tours = await uow.TourRepository.GetToursAsync(tourForm);
             //var TourListDTO = mapper.Map<IEnumerable<TourListDto>>(Tours);
-            return Ok(Tours); // TourListDTO
+            return Ok(Tours); // TourListDTO also setup automapper
         }
 
         //Tour/detail/1
@@ -46,21 +47,21 @@ namespace UkraineToursAPI.Controllers
             return Ok(Tour); //TourDTO
         }
 
-/*        //Tour/add
+        //Tour/add
         [HttpPost("add")]
         [Authorize]
-        public async Task<IActionResult> AddTour(TourDto TourDto)
+        public async Task<IActionResult> AddTour(Tour Tour)
         {
-            var Tour = mapper.Map<Tour>(TourDto);
+            //var Tour = mapper.Map<Tour>(TourDto);
             var userId = GetUserId();
             Tour.PostedBy = userId;
             Tour.LastUpdatedBy = userId;
             uow.TourRepository.AddTour(Tour);
             await uow.SaveAsync();
             return StatusCode(201);
-        }*/
+        }
 
-        //Tour/add/photo/1
+/*        //Tour/add/photo/1
         [HttpPost("add/photo/{propId}")]
         [Authorize]
         public async Task<IActionResult> AddTourPhoto(IFormFile file, int propId)
@@ -84,6 +85,6 @@ namespace UkraineToursAPI.Controllers
             Tour.Photos.Add(photo);
             await uow.SaveAsync();
             return StatusCode(201);
-        }
+        }*/
     }
 }
