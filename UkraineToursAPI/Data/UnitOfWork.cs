@@ -17,15 +17,16 @@ namespace UkraineToursAPI.Data
 
         public IUserRepository UserRepository =>         
             new UserRepository(dc);
+
+        public ITourRepository TourRepository =>
+            new TourRepository(dc);
+
         /*
-        public IFurnishingTypeRepository FurnishingTypeRepository =>         
-            new FurnishingTypeRepository(dc);
+public IFurnishingTypeRepository FurnishingTypeRepository =>         
+new FurnishingTypeRepository(dc);
 
-        public IPropertyTypeRepository PropertyTypeRepository =>         
-            new PropertyTypeRepository(dc);
-
-        public IPropertyRepository PropertyRepository => 
-            new PropertyRepository(dc);*/
+public IPropertyRepository PropertyRepository => 
+new PropertyRepository(dc);*/
 
         public async Task<bool> SaveAsync()
         {

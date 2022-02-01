@@ -8,7 +8,7 @@ namespace UkraineToursAPI.Interfaces
 
         IUserRepository UserRepository {get; }
 
-        //IPropertyRepository PropertyRepository {get; }
+        ITourRepository TourRepository {get; }
 
         //IFurnishingTypeRepository FurnishingTypeRepository {get; }
 

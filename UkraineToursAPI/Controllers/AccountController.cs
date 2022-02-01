@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +33,9 @@ namespace UkraineToursAPI.Controllers
 
             if (user == null)
             {
-                apiError.ErrorCode=Unauthorized().StatusCode;
-                apiError.ErrorMessage="Invalid user name or password";
-                apiError.ErrorDetails="This error appear when provided user id or password does not exists";
+                apiError.ErrorCode = Unauthorized().StatusCode;
+                apiError.ErrorMessage = "Invalid user name or password";
+                apiError.ErrorDetails = "This error appear when provided user id or password does not exists";
                 return Unauthorized(apiError);
             }
 
@@ -55,16 +52,17 @@ namespace UkraineToursAPI.Controllers
 
             if (user.UserName.IsEmpty() || user.Password.IsEmpty())
             {
-                    apiError.ErrorCode=BadRequest().StatusCode;
-                    apiError.ErrorMessage="User name or password can not be blank";                    
-                    return BadRequest(apiError);
-            }                    
-
-            if (await uow.UserRepository.UserAlreadyExists(user.UserName)) {
-                apiError.ErrorCode=BadRequest().StatusCode;
-                apiError.ErrorMessage="User already exists, please try different user name";
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User name or password can not be blank";
                 return BadRequest(apiError);
-            }                
+            }
+
+            if (await uow.UserRepository.UserAlreadyExists(user.UserName))
+            {
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User already exists, please try different user name";
+                return BadRequest(apiError);
+            }
 
             uow.UserRepository.Register(user);
             await uow.SaveAsync();
@@ -77,7 +75,8 @@ namespace UkraineToursAPI.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(secretKey));
 
-            var claims = new Claim[] {
+            var claims = new Claim[]
+            {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
