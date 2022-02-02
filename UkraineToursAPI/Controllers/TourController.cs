@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using UkraineToursAPI.Dtos;
+using UkraineToursAPI.Errors;
 using UkraineToursAPI.Interfaces;
 using UkraineToursAPI.Models;
 
@@ -27,64 +26,71 @@ namespace UkraineToursAPI.Controllers
             this.mapper = mapper;
         }
 
-        //Tour/list/1
         [HttpGet("list/{tourForm}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetTourList(int tourForm)
         {
-            var Tours = await uow.TourRepository.GetToursAsync(tourForm);
-            //var TourListDTO = mapper.Map<IEnumerable<TourListDto>>(Tours);
-            return Ok(Tours); // TourListDTO also setup automapper
+            var tours = await uow.TourRepository.GetToursAsync(tourForm);
+            var tourListDTO = mapper.Map<IEnumerable<TourListDto>>(tours);
+            return Ok(tourListDTO);
         }
 
-        //Tour/detail/1
         [HttpGet("detail/{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetTourDetail(int id)
         {
-            var Tour = await uow.TourRepository.GetTourDetailAsync(id);
-            //var TourDTO = mapper.Map<TourDetailDto>(Tour);
-            return Ok(Tour); //TourDTO
+            var tour = await uow.TourRepository.GetTourDetailAsync(id);
+            if (tour == null)
+            {
+                var apiError = new ApiError();
+                apiError.ErrorCode = NotFound().StatusCode;
+                apiError.ErrorMessage = "There is no tour with this id";
+                apiError.ErrorDetails = "This error appear when provided tour id does not exist";
+                return NotFound(apiError);
+            }
+
+            var tourDTO = mapper.Map<TourListDto>(tour);
+            return Ok(tourDTO);
         }
 
         //Tour/add
         [HttpPost("add")]
-        [Authorize]
-        public async Task<IActionResult> AddTour(Tour Tour)
+        //[Authorize]
+        public async Task<IActionResult> AddTour(Tour tour)
         {
-            //var Tour = mapper.Map<Tour>(TourDto);
-            var userId = GetUserId();
-            Tour.PostedBy = userId;
-            Tour.LastUpdatedBy = userId;
-            uow.TourRepository.AddTour(Tour);
+            //var tour = mapper.Map<Tour>(tourDto);
+            var userId = /*GetUserId()*/ 8;
+            tour.PostedBy = userId;
+            tour.LastUpdatedBy = userId;
+            uow.TourRepository.AddTour(tour);
             await uow.SaveAsync();
             return StatusCode(201);
         }
 
-/*        //Tour/add/photo/1
-        [HttpPost("add/photo/{propId}")]
-        [Authorize]
-        public async Task<IActionResult> AddTourPhoto(IFormFile file, int propId)
-        {
-            var result = await photoService.UploadPhotoAsync(file);
-            if (result.Error != null)
-                return BadRequest(result.Error.Message);
+        /*        //Tour/add/photo/1
+                [HttpPost("add/photo/{propId}")]
+                [Authorize]
+                public async Task<IActionResult> AddTourPhoto(IFormFile file, int propId)
+                {
+                    var result = await photoService.UploadPhotoAsync(file);
+                    if (result.Error != null)
+                        return BadRequest(result.Error.Message);
 
-            var Tour = await uow.TourRepository.GetTourByIdAsync(propId);
+                    var Tour = await uow.TourRepository.GetTourByIdAsync(propId);
 
-            var photo = new Photo
-            {
-                ImageUrl = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
-            };
-            if (Tour.Photos.Count == 0)
-            {
-                photo.IsPrimary = true;
-            }
+                    var photo = new Photo
+                    {
+                        ImageUrl = result.SecureUrl.AbsoluteUri,
+                        PublicId = result.PublicId
+                    };
+                    if (Tour.Photos.Count == 0)
+                    {
+                        photo.IsPrimary = true;
+                    }
 
-            Tour.Photos.Add(photo);
-            await uow.SaveAsync();
-            return StatusCode(201);
-        }*/
+                    Tour.Photos.Add(photo);
+                    await uow.SaveAsync();
+                    return StatusCode(201);
+                }*/
     }
 }

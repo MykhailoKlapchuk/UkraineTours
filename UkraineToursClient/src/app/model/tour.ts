@@ -29,4 +29,7 @@ export class Tour implements ITourBase {
     duration: number;
     foodPantion?: string;
     transportType?: string;
+    ownerName: string;
+    ownerPhoneNumber: string;
+    ownerEmail: string;
 }

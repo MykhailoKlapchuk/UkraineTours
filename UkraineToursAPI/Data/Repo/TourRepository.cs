@@ -16,9 +16,9 @@ namespace UkraineToursAPI.Data.Repo
         {
             this.dc = dc;
         }
-        public void AddTour(Tour Tour)
+        public void AddTour(Tour tour)
         {
-            dc.Tours.Add(Tour);
+            dc.Tours.Add(tour);
         }
 
         public void DeleteTour(int id)
@@ -29,47 +29,45 @@ namespace UkraineToursAPI.Data.Repo
         public async Task<IEnumerable<Tour>> GetToursAsync(int tourForm)
         {
             var tourFormEnum = ((TourForms)tourForm).ToString();
-            var Tours = await dc.Tours
+            var tours = await dc.Tours
+            .Include(p => p.TourType)
+            .Include(p => p.City)
+            .Include(p => p.SupportType)
+            .Include(p => p.Photos)
+            .Where(p => p.TourForm == tourFormEnum)
+            .ToListAsync();
+
+            return tours;
+        }
+
+        public async Task<Tour> GetTourDetailAsync(int id)
+        {
+            var tours = await dc.Tours
             .Include(p => p.TourType)
             .Include(p => p.City)
             .Include(p => p.SupportType)
             .Include(p => p.Photos)
             .Include(p => p.User)
-            .Where(p => p.TourForm == tourFormEnum)
-            .ToListAsync();
-
-            return Tours;
-        }
-
-        public async Task<Tour> GetTourDetailAsync(int id)
-        {
-            var Tours = await dc.Tours
-            .Include(p => p.TourType)
-            .Include(p => p.City)
-            .Include(p => p.SupportType)
-            .Include(p => p.Photos)
             .Where(p => p.Id == id)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
 
-            return Tours;
+            return tours;
         }
 
         public async Task<Tour> GetTourByIdAsync(int id)
         {
-            var Tours = await dc.Tours
+            var tours = await dc.Tours
             .Include(p => p.Photos)
             .Where(p => p.Id == id)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
 
-            return Tours;
+            return tours;
         }
 
         enum TourForms
         {
-            Private = 0,
-            Group = 1
+            Private = 1,
+            Group = 2
         }
-
-
     }
 }
