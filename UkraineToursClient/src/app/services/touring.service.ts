@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ITourBase } from '../model/itourbase';
 import { Tour } from '../model/tour';
 import { environment } from '../../environments/environment';
-import { Ikeyvaluepair } from '../model/IKeyValuePair';
+import { Ikeyvaluepair } from '../model/ikeyvaluepair';
 
 @Injectable({
   providedIn: 'root'
@@ -36,13 +34,13 @@ export class TouringService {
   }
 
   addTour(tour: Tour) {
-/*    const httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + localStorage.getItem('token')
       })
-    };*/
+    };
     debugger
-    return this.http.post(this.baseUrl + '/tour/add', tour /*httpOptions*/);
+    return this.http.post(this.baseUrl + '/tour/add', tour, httpOptions);
   }
 
 

@@ -6,7 +6,7 @@ import { Tour } from 'src/app/model/tour';
 import { ITourBase } from 'src/app/model/itourbase';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { TouringService } from 'src/app/services/touring.service';
-import { Ikeyvaluepair } from 'src/app/model/IKeyValuePair';
+import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -27,8 +27,8 @@ export class AddTourComponent implements OnInit {
     tourView: ITourBase = {
       id: null,
       tourForm: null,
-      tourType: '',
-      supportType: '',
+      tourType: null,
+      supportType: null,
       city: '',
       name: '',
       duration: null,
@@ -111,16 +111,13 @@ export class AddTourComponent implements OnInit {
 
       if (this.allTabsValid()) {
         this.mapTour();
-        this.touringService.addTour(this.tour);
-        // .subscribe(
-        //   () => {
-         this.alertify.success('Congrats, your tour is successfully created');
-        // })
+        this.touringService.addTour(this.tour).subscribe(data => {
+          console.log(data);
+          this.alertify.success('Congrats, your tour is successfully created');
+        })
       } else {
         this.alertify.error('Please review the form and provide all valid entries');
       }
-
-      console.log(this.addTourForm);
     }
     onChange(addTourForm: FormGroup){
       console.log(addTourForm);
@@ -141,10 +138,10 @@ export class AddTourComponent implements OnInit {
     this.tour.name = this.Name.value;
     this.tour.city = this.City.value;
     this.tour.price = this.Price.value;
-    this.tour.supportPrice = this.SupportType.value;
-    this.tour.transportationPrice = this.TransportationPrice.value;
-    this.tour.accommodationPrice = this.AccommodationPrice.value;
-    this.tour.foodPrice = this.FoodPrice.value;
+    this.tour.supportPrice = this.SupportPrice.value ?? 0;
+    this.tour.transportationPrice = this.TransportationPrice.value ?? 0;
+    this.tour.accommodationPrice = this.AccommodationPrice.value ?? 0;
+    this.tour.foodPrice = this.FoodPrice.value ?? 0;
     this.tour.countryPart = this.CountryPart.value;
     this.tour.region = this.Region.value;
     this.tour.settlements = this.Settlements.value;

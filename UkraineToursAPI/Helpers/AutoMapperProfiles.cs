@@ -26,18 +26,17 @@ namespace UkraineToursAPI.Helpers
                 .ForMember(d => d.OwnerEmail, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(d => d.Photo, opt => opt.MapFrom(src => src.Photos
                                 .FirstOrDefault(p => p.IsPrimary).ImageUrl));
-            /*
 
-                        CreateMap<Property, PropertyDetailDto>()
-                            .ForMember(d => d.City, opt => opt.MapFrom(src => src.City.Name))
-                            .ForMember(d => d.Country, opt => opt.MapFrom(src => src.City.Country))
-                            .ForMember(d => d.PropertyType, opt => opt.MapFrom(src => src.PropertyType.Name))
-                            .ForMember(d => d.FurnishingType, opt => opt.MapFrom(src => src.FurnishingType.Name));
 
-                        */
-            CreateMap<SupportType, KeyValuePairDto>();
+            CreateMap<TourListDto, Tour>()
+                .ForMember(d => d.City, opt => opt.MapFrom(src => new City(){Name = src.City }))
+                .ForMember(d => d.SupportType, opt => opt.MapFrom(src => new SupportType(){Name = src.SupportType }))
+                .ForMember(d => d.TourType, opt => opt.MapFrom(src => new TourType(){Name = src.TourType }));
 
-            CreateMap<TourType, KeyValuePairDto>();
+
+            CreateMap<SupportType, KeyValuePairDto>().ReverseMap();
+
+            CreateMap<TourType, KeyValuePairDto>().ReverseMap();
 
         }
     }

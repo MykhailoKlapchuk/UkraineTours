@@ -52,13 +52,12 @@ namespace UkraineToursAPI.Controllers
             var tourDTO = mapper.Map<TourListDto>(tour);
             return Ok(tourDTO);
         }
-
-        //Tour/add
+                
         [HttpPost("add")]
-        //[Authorize]
-        public async Task<IActionResult> AddTour(Tour tour)
+        [AllowAnonymous]
+        public async Task<IActionResult> AddTour(TourListDto tourDto)
         {
-            //var tour = mapper.Map<Tour>(tourDto);
+            var tour = mapper.Map<Tour>(tourDto);
             var userId = /*GetUserId()*/ 8;
             tour.PostedBy = userId;
             tour.LastUpdatedBy = userId;

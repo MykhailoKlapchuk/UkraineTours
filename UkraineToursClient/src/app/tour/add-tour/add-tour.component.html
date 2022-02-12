@@ -52,7 +52,6 @@
                   <label>City</label>
                   <select #city class="form-control" formControlName="City"
                   (change)="tourView.city=city.options[city.options.selectedIndex].text">
-                    <option value="">--Select city--</option>
                     <option *ngFor="let city of settlementList" value={{city.id}}>{{city.name}}</option>
                   </select>
                   <div class="error-block"
@@ -173,7 +172,7 @@
                   bsDatepicker
                   [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'MMM DD, YYYY'}">
                   <div class="error-block"
-                    *ngIf="AvailableFrom.invalid && nextClicked">
+                    *ngIf="AvailableFrom.invalid && (nextClicked || AvailableFrom.touched)">
                     Please select date
                   </div>
                 </div>
