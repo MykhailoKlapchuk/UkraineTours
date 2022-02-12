@@ -7,6 +7,7 @@ import { ITourBase } from 'src/app/model/itourbase';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { TouringService } from 'src/app/services/touring.service';
 import { Ikeyvaluepair } from 'src/app/model/IKeyValuePair';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-tour',
@@ -19,7 +20,6 @@ export class AddTourComponent implements OnInit {
   nextClicked: boolean;
   tour = new Tour();
 
-    // Will come from masters
     tourTypes: Ikeyvaluepair [];
     supportTypes: Ikeyvaluepair [];
     settlementList: any =[];
@@ -32,12 +32,13 @@ export class AddTourComponent implements OnInit {
       city: '',
       name: '',
       duration: null,
-      price: 0,
-      adultsOnly: false
+      price: null,
+      adultsOnly: null
     };
 
-
-    constructor(private fb: FormBuilder,
+    constructor(
+      private datePipe: DatePipe,
+      private fb: FormBuilder,
        private router: Router,
        private alertify: AlertifyService,
        private touringService: TouringService) { }
@@ -121,6 +122,9 @@ export class AddTourComponent implements OnInit {
 
       console.log(this.addTourForm);
     }
+    onChange(addTourForm: FormGroup){
+      console.log(addTourForm);
+    }
 
     selectTab(NextTabId: number, IsCurrentTabValid: boolean) {
       this.nextClicked = true;
@@ -150,7 +154,7 @@ export class AddTourComponent implements OnInit {
     this.tour.accomType = this.AccomType.value;
     this.tour.transportType = this.TransportType.value;
     this.tour.foodPantion = this.FoodPantion.value;
-    //this.tour.availableFrom = this.datePipe.transform(this.AvailableFrom.value,'MM/dd/yyyy');
+    this.tour.availableFrom = this.datePipe.transform(this.AvailableFrom.value,'MM/dd/yyyy');
     this.tour.description = this.Description.value;
 }
 

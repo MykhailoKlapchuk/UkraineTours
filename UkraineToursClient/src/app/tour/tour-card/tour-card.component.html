@@ -19,11 +19,15 @@
 
 
     <p>{{tour.supportType}}</p>
+
+    <p>{{tour.tourForm}}</p>
+    <p>{{tour.adultsOnly}}</p>
     <p *ngIf="tour.adultsOnly">Adults only</p>
 
     <hr class="mt-0 mb-2">
+    <h6>{{tour.availableFrom}}</h6>
 
-    <h6 class="mb-0">Price: <span class="font-highlight">{{tour.price}} USD</span> |
-      Duration:  <span class="font-highlight">{{tour.duration}} days </span> </h6>
+    <h6 class="mb-0">Price: <span class="font-highlight" *ngIf="tour.price != null">{{tour.price}} USD</span> |
+      Duration:  <span class="font-highlight" *ngIf="tour.duration !=null">{{tour.duration}} days </span> </h6>
   </div>
 </div>

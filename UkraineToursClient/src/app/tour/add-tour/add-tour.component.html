@@ -5,7 +5,7 @@
         <h3>Tours list</h3>
       </div>
       <div class="card-body">
-        <form (ngSubmit)='onSubmit()' [formGroup]="addTourForm">
+        <form (ngSubmit)='onSubmit()' (change)='onChange(addTourForm)'  [formGroup]="addTourForm">
           <div class="tab-panel">
             <tabset class="member-tabset" #formTabs>
 
@@ -15,9 +15,9 @@
                   <p>Tour form</p>
                   <div class="btn-group" btnRadioGroup formControlName="TourForm">
                     <label class="btn btn-outline-primary mr-2" btnRadio='Private' tabindex="0" role="button"
-                      name="TourForm">Private</label>
+                      name="TourForm" (click)="tourView.tourForm=TourForm.value">Private</label>
                     <label class="btn btn-outline-primary" btnRadio='Group' tabindex="0" role="button"
-                      name="TourForm">Group</label>
+                      name="TourForm" (click)="tourView.tourForm=TourForm.value">Group</label>
                   </div>
                   <div class="error-block" *ngIf="TourForm.invalid && nextClicked">
                     Please select tour form
@@ -81,7 +81,7 @@
                 <div class="form-group col-12">
                   <label>Total price (in USD)</label>
                   <input type="text" class="form-control" formControlName="Price" #price
-                  (keyup)="tourView.price=+price">
+                  (keyup)="tourView.price=+price.value">
                   <div class="error-block"
                   *ngIf="Price.invalid && (nextClicked || Price.touched)">
                     Please enter price
@@ -155,8 +155,10 @@
                 <div class="form-group col-12">
                   <label>For adults only?</label><br />
                   <div class="btn-group" btnRadioGroup formControlName='AdultsOnly'>
-                    <label class="btn btn-outline-primary mr-2" btnRadio='true' tabindex="0" role="button" name="AdultsOnly">Yes</label>
-                    <label class="btn btn-outline-primary" btnRadio='false' tabindex="0" role="button" name="AdultsOnly">No</label>
+                    <label class="btn btn-outline-primary mr-2" btnRadio='true' tabindex="0" role="button"
+                    name="AdultsOnly" (click)="tourView.adultsOnly=AdultsOnly.value">Yes</label>
+                    <label class="btn btn-outline-primary" btnRadio='false' tabindex="0" role="button"
+                    name="AdultsOnly" (click)="tourView.adultsOnly=AdultsOnly.value">No</label>
                   </div>
                   <div class="error-block"
                     *ngIf="AdultsOnly.invalid && nextClicked">
@@ -166,8 +168,10 @@
 
                 <div class="form-group col-3">
                   <label>Available from</label>
-                  <input type="text" class="form-control" bsDatepicker formControlName="AvailableFrom"
-                    [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'MMM DD, YYYY'}">
+                  <input type="text" class="form-control" formControlName="AvailableFrom"
+                  #availableFrom (bsValueChange)="tourView.availableFrom=availableFrom.value"
+                  bsDatepicker
+                  [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'MMM DD, YYYY'}">
                   <div class="error-block"
                     *ngIf="AvailableFrom.invalid && nextClicked">
                     Please select date
@@ -176,7 +180,8 @@
 
                 <div class="form-group col-12">
                   <label>Duration</label>
-                  <input type="text" class="form-control" formControlName="Duration">
+                  <input type="text" class="form-control" formControlName="Duration" #duration
+                  (keyup)="tourView.duration=+duration.value">
                   <div class="error-block"
                     *ngIf="Duration.invalid && nextClicked">
                     Please enter duration (in days)
