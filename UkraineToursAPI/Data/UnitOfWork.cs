@@ -12,21 +12,20 @@ namespace UkraineToursAPI.Data
         {
             this.dc = dc;
         }
-        public ICityRepository CityRepository => 
+        public ICityRepository CityRepository =>
             new CityRepository(dc);
 
-        public IUserRepository UserRepository =>         
+        public IUserRepository UserRepository =>
             new UserRepository(dc);
 
         public ITourRepository TourRepository =>
             new TourRepository(dc);
 
-        /*
-public IFurnishingTypeRepository FurnishingTypeRepository =>         
-new FurnishingTypeRepository(dc);
+        public ISupportTypeRepository SupportTypeRepository =>
+        new SupportTypeRepository(dc);
 
-public IPropertyRepository PropertyRepository => 
-new PropertyRepository(dc);*/
+        public ITourTypeRepository TourTypeRepository =>
+        new TourTypeRepository(dc);
 
         public async Task<bool> SaveAsync()
         {

@@ -6,6 +6,7 @@ import { Tour } from 'src/app/model/tour';
 import { ITourBase } from 'src/app/model/itourbase';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { TouringService } from 'src/app/services/touring.service';
+import { Ikeyvaluepair } from 'src/app/model/IKeyValuePair';
 
 @Component({
   selector: 'app-add-tour',
@@ -19,8 +20,8 @@ export class AddTourComponent implements OnInit {
   tour = new Tour();
 
     // Will come from masters
-    tourTypes: Array<string> = ['Walking', 'Bus', 'Hiking']
-    supportTypes: Array<string> = ['Fully', 'Semi', 'Unsupported']
+    tourTypes: Ikeyvaluepair [];
+    supportTypes: Ikeyvaluepair [];
     settlementList: any =[];
 
     tourView: ITourBase = {
@@ -48,9 +49,17 @@ export class AddTourComponent implements OnInit {
       //     this.router.navigate(['/user/login']);
       // }
       this.CreateAddTourForm();
+
       this.touringService.getAllCities().subscribe(data => {
-        console.log(data);
         this.settlementList = data;
+      })
+
+      this.touringService.getTourTypes().subscribe(data => {
+        this.tourTypes = data;
+      })
+
+      this.touringService.getSupportTypes().subscribe(data => {
+        this.supportTypes = data;
       })
     }
 

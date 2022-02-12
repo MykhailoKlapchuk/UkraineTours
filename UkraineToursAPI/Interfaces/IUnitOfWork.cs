@@ -10,9 +10,9 @@ namespace UkraineToursAPI.Interfaces
 
         ITourRepository TourRepository {get; }
 
-        //IFurnishingTypeRepository FurnishingTypeRepository {get; }
+        ISupportTypeRepository SupportTypeRepository {get; }
 
-        //IPropertyTypeRepository PropertyTypeRepository {get; }
+        ITourTypeRepository TourTypeRepository {get; }
 
         Task<bool> SaveAsync();
     }

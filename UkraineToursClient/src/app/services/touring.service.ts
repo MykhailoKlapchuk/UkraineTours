@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ITourBase } from '../model/itourbase';
 import { Tour } from '../model/tour';
 import { environment } from '../../environments/environment';
+import { Ikeyvaluepair } from '../model/IKeyValuePair';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,13 @@ export class TouringService {
     return this.http.get<Tour>(this.baseUrl + '/tour/detail/' + id.toString());
   }
 
-  /*getSupportTypes(): Observable<Ikeyvaluepair[]> {
-    return this.http.get<Ikeyvaluepair[]>(this.baseUrl + '/suppottype/list');
-  }*/
+  getSupportTypes(): Observable<Ikeyvaluepair[]> {
+    return this.http.get<Ikeyvaluepair[]>(this.baseUrl + '/supporttype/list');
+  }
+
+  getTourTypes(): Observable<Ikeyvaluepair[]> {
+    return this.http.get<Ikeyvaluepair[]>(this.baseUrl + '/tourtype/list');
+  }
 
   addTour(tour: Tour) {
 /*    const httpOptions = {
