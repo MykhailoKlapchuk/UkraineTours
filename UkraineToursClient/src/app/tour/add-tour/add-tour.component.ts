@@ -136,6 +136,7 @@ export class AddTourComponent implements OnInit {
     this.tour.tourType = this.TourType.value;
     this.tour.supportType = this.SupportType.value;
     this.tour.name = this.Name.value;
+    this.tour.cityId = +this.City.value;
     this.tour.city = this.City.value;
     this.tour.price = this.Price.value;
     this.tour.supportPrice = this.SupportPrice.value ?? 0;

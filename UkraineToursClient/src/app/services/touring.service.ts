@@ -39,7 +39,6 @@ export class TouringService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       })
     };
-    debugger
     return this.http.post(this.baseUrl + '/tour/add', tour, httpOptions);
   }
 

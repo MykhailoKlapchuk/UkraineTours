@@ -26,9 +26,9 @@
 
                 <div class="form-group col-12">
                   <p>Tour type</p>
-                  <div class="btn-group" btnRadioGroup formControlName='TourType' name="TourType">
+                  <div class="btn-group" btnRadioGroup formControlName='TourType'>
                     <label *ngFor="let ttype of tourTypes" class="btn btn-outline-primary mr-2" [btnRadio]="ttype.name"
-                      tabindex="0" role="button" (click)="tourView.tourType=ttype.name" name="TourType">{{ttype.name}}
+                      tabindex="0" role="button" (click)="tourView.tourType=ttype.name; tour.tourTypeId=ttype.id" name="TourType">{{ttype.name}}
                     </label>
                   </div>
                   <div class="error-block" *ngIf="TourType.invalid && nextClicked">
@@ -40,7 +40,7 @@
                   <p>Support type</p>
                   <div class="btn-group" btnRadioGroup formControlName="SupportType">
                     <label *ngFor="let stype of supportTypes" class="btn btn-outline-primary mr-2" [btnRadio]="stype.name"
-                      tabindex="0" role="button" (click)="tourView.supportType=stype.name" name="SupportType">{{stype.name}}
+                      tabindex="0" role="button" (click)="tourView.supportType=stype.name; tour.supportTypeId=stype.id" name="SupportType">{{stype.name}}
                     </label>
                   </div>
                   <div class="error-block" *ngIf="SupportType.invalid && nextClicked">
