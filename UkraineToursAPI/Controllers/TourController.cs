@@ -55,7 +55,7 @@ namespace UkraineToursAPI.Controllers
                 
         [HttpPost("add")]
         [AllowAnonymous]
-        public async Task<IActionResult> AddTour(TourListDto tourDto)
+        public async Task<IActionResult> AddTour(TourDto tourDto)
         {
             var tour = mapper.Map<Tour>(tourDto);
             var userId = /*GetUserId()*/ 8;
