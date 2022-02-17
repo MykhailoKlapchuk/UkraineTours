@@ -10,6 +10,7 @@ using UkraineToursAPI.Data;
 using UkraineToursAPI.Extensions;
 using UkraineToursAPI.Helpers;
 using UkraineToursAPI.Interfaces;
+using UkraineToursAPI.Services;
 
 namespace UkraineToursAPI
 {
@@ -35,6 +36,7 @@ namespace UkraineToursAPI
             services.AddCors();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

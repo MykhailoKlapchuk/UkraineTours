@@ -24,7 +24,8 @@ public mainPhotoUrl: string = null;
     this.route.data.subscribe(
       (data: Tour) => {
           this.tour = data['tour'];
-          this.tour.photos = this.getTourPhotos();
+          this.mainPhotoUrl = this.tour.photo;
+          //this.tour.photos = this.getTourPhotos();
           console.log(this.tour.photos);
       })
   }

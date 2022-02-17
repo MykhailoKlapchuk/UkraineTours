@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-img-wrapper">
-    <img *ngIf="tour.photo" class="card-img-top" src="assets/images/{{tour.photo}}.jpg">
+    <img *ngIf="tour.photo" class="card-img-top" src="{{tour.photo}}">
     <img *ngIf="!tour.photo" class="card-img-top" src="assets/images/lviv.jpg">
     <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
       <li class="list-inline-item">

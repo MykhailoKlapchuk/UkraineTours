@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UkraineToursAPI.Dtos
 {
@@ -33,5 +34,6 @@ namespace UkraineToursAPI.Dtos
         public string OwnerName { get; set; }
         public string OwnerPhoneNumber { get; set; }
         public string OwnerEmail { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
     }
 }

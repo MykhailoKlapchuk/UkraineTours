@@ -12,8 +12,8 @@ export class TourDetailResolverService implements Resolve<Tour> {
 
 constructor(private router: Router,  private touringService: TouringService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Tour> | Tour {
-    const propId = route.params['id'];
-        return this.touringService.getTour(+propId).pipe(
+    const tourId = route.params['id'];
+        return this.touringService.getTour(+tourId).pipe(
             catchError(error => {
                 this.router.navigate(['/']);
                 return of(null);

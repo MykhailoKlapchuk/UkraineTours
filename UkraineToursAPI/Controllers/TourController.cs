@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,14 +15,13 @@ namespace UkraineToursAPI.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
-        //private readonly IPhotoService photoService;
+        private readonly IPhotoService photoService;
 
         public TourController(IUnitOfWork uow,
-        IMapper mapper
-        //IPhotoService photoService
-            )
+        IMapper mapper,
+        IPhotoService photoService)
         {
-            //this.photoService = photoService;
+            this.photoService = photoService;
             this.uow = uow;
             this.mapper = mapper;
         }
@@ -66,30 +66,29 @@ namespace UkraineToursAPI.Controllers
             return StatusCode(201);
         }
 
-        /*        //Tour/add/photo/1
-                [HttpPost("add/photo/{propId}")]
-                [Authorize]
-                public async Task<IActionResult> AddTourPhoto(IFormFile file, int propId)
-                {
-                    var result = await photoService.UploadPhotoAsync(file);
-                    if (result.Error != null)
-                        return BadRequest(result.Error.Message);
+        [HttpPost("add/photo/{propId}")]
+        [Authorize]
+        public async Task<IActionResult> AddTourPhoto(IFormFile file, int propId)
+        {
+            var result = await photoService.UploadPhotoAsync(file);
+            if (result.Error != null)
+                return BadRequest(result.Error.Message);
 
-                    var Tour = await uow.TourRepository.GetTourByIdAsync(propId);
+            var tour = await uow.TourRepository.GetTourByIdAsync(propId);
 
-                    var photo = new Photo
-                    {
-                        ImageUrl = result.SecureUrl.AbsoluteUri,
-                        PublicId = result.PublicId
-                    };
-                    if (Tour.Photos.Count == 0)
-                    {
-                        photo.IsPrimary = true;
-                    }
+            var photo = new Photo
+            {
+                ImageUrl = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+            if (tour.Photos.Count == 0)
+            {
+                photo.IsPrimary = true;
+            }
 
-                    Tour.Photos.Add(photo);
-                    await uow.SaveAsync();
-                    return StatusCode(201);
-                }*/
+            tour.Photos.Add(photo);
+            await uow.SaveAsync();
+            return StatusCode(201);
+        }
     }
 }
