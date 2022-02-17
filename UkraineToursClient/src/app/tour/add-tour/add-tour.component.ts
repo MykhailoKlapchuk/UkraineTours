@@ -44,11 +44,10 @@ export class AddTourComponent implements OnInit {
        private touringService: TouringService) { }
 
     ngOnInit() {
-      // if(!localStorage.getItem('userName'))
-      // {
-      //     this.alertify.error('You must be looged in to add a tour');
-      //     this.router.navigate(['/user/login']);
-      // }
+       if (!localStorage.getItem('userName')) {
+         this.alertify.error('You must be looged in to add a tour');
+         this.router.navigate(['/user/login']);
+       }
       this.CreateAddTourForm();
 
       this.touringService.getAllCities().subscribe(data => {

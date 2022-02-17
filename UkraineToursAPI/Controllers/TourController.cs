@@ -54,11 +54,11 @@ namespace UkraineToursAPI.Controllers
         }
                 
         [HttpPost("add")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> AddTour(TourDto tourDto)
         {
             var tour = mapper.Map<Tour>(tourDto);
-            var userId = /*GetUserId()*/ 8;
+            var userId = GetUserId();
             tour.PostedBy = userId;
             tour.LastUpdatedBy = userId;
             uow.TourRepository.AddTour(tour);
