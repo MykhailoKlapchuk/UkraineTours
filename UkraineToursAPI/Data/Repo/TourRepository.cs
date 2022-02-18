@@ -33,7 +33,6 @@ namespace UkraineToursAPI.Data.Repo
             .Include(p => p.TourType)
             .Include(p => p.City)
             .Include(p => p.SupportType)
-            .Include(p => p.Photos)
             .Where(p => p.TourForm == tourFormEnum)
             .ToListAsync();
 
@@ -42,7 +41,7 @@ namespace UkraineToursAPI.Data.Repo
 
         public async Task<Tour> GetTourDetailAsync(int id)
         {
-            var tours = await dc.Tours
+            var tour = await dc.Tours
             .Include(p => p.TourType)
             .Include(p => p.City)
             .Include(p => p.SupportType)
@@ -51,7 +50,12 @@ namespace UkraineToursAPI.Data.Repo
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
 
-            return tours;
+            if(tour != null)
+            {
+                tour.Photos = tour.Photos.Where(x => x.IsPrimary == false).ToList();
+            }
+
+            return tour;
         }
 
         public async Task<Tour> GetTourByIdAsync(int id)

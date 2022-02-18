@@ -22,9 +22,7 @@ namespace UkraineToursAPI.Helpers
                 .ForMember(d => d.SupportType, opt => opt.MapFrom(src => src.SupportType.Name))
                 .ForMember(d => d.OwnerName, opt => opt.MapFrom(src => src.User.UserName))
                 .ForMember(d => d.OwnerPhoneNumber, opt => opt.MapFrom(src => src.User.PhoneNumber))
-                .ForMember(d => d.OwnerEmail, opt => opt.MapFrom(src => src.User.Email))
-                .ForMember(d => d.Photo, opt => opt.MapFrom(src => src.Photos
-                                .FirstOrDefault(p => p.IsPrimary).ImageUrl));
+                .ForMember(d => d.OwnerEmail, opt => opt.MapFrom(src => src.User.Email));
         }
     }
 }

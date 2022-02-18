@@ -84,6 +84,7 @@ namespace UkraineToursAPI.Controllers
             if (tour.Photos.Count == 0)
             {
                 photo.IsPrimary = true;
+                tour.Photo = photo.ImageUrl;
             }
 
             tour.Photos.Add(photo);
